@@ -1,10 +1,8 @@
--- Оновлено для перевірки workflow
-
 -- Створення таблиці "User"
 CREATE TABLE User (
     user_id SERIAL PRIMARY KEY,
     last_name VARCHAR(50) NOT NULL CHECK (last_name ~ '^[A-Za-zА-Яа-я]+$'),  -- Регулярний вираз для текстових значень
-    first_name VARCHAR(50) NOT NULL CHECK (first_name ~ '^[A-Za-zА-Яа-я]+$'), 
+    first_name VARCHAR(50) NOT NULL CHECK (first_name ~ '^[A-Za-zА-Яа-я]+$'),
     email VARCHAR(100) UNIQUE NOT NULL CHECK (email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')  -- Формат для електронної пошти
 );
 
@@ -35,7 +33,7 @@ CREATE TABLE Analysis (
 CREATE TABLE Trip (
     trip_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES User(user_id),
-    date DATE NOT NULL CHECK (date >= '1900-01-01' AND date <= CURRENT_DATE), 
+    date DATE NOT NULL CHECK (date >= '1900-01-01' AND date <= CURRENT_DATE),
     place VARCHAR(100) NOT NULL,
     activities VARCHAR(255)
 );
