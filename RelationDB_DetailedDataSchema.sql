@@ -1,3 +1,5 @@
+-- Оновлено для перевірки workflow
+
 -- Створення таблиці "User"
 CREATE TABLE User (
     user_id SERIAL PRIMARY KEY,
