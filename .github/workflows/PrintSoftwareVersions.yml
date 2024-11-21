@@ -28,15 +28,18 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Перевірка наявності MySQL
+        shell: pwsh
         run: |
-          if ! mysql --version; then
-            echo "MySQL не знайдено. Встановлюємо MySQL..."
+          $mysqlVersion = mysql --version
+          if ($mysqlVersion) {
+            Write-Host "MySQL вже встановлений."
+          } else {
+            Write-Host "MySQL не знайдено. Встановлюємо MySQL..."
             choco install mysql
             net start mysql
-          else
-            echo "MySQL вже встановлений."
-          fi
+          }
 
       - name: Виведення версії MySQL
         run: mysql --version || echo "MySQL не встановлений"
+
 
