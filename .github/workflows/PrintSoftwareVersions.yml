@@ -21,7 +21,15 @@ jobs:
         run: dotnet --version
 
       - name: Виведення версії Angular CLI
-        run: ng version || echo "Angular CLI не встановлений"
+        run: |
+          # Перевірка, чи встановлений Angular CLI
+          if (Get-Command ng -ErrorAction SilentlyContinue) {
+            ng version
+          } else {
+            Write-Host "Angular CLI не встановлений. Встановлюємо..."
+            npm install -g @angular/cli
+            ng version
+          }
 
   # Друга робота для перевірки версії СКБД на рівні доступу до даних
   check-database-software-versions:
