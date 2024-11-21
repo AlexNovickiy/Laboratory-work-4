@@ -27,10 +27,16 @@ jobs:
   check-database-software-versions:
     runs-on: windows-latest
     steps:
-      - name: Встановлення MySQL на Windows
+      - name: Перевірка наявності MySQL
         run: |
-          choco install mysql
-          net start mysql
+          if ! mysql --version; then
+            echo "MySQL не знайдено. Встановлюємо MySQL..."
+            choco install mysql
+            net start mysql
+          else
+            echo "MySQL вже встановлений."
+          fi
 
       - name: Виведення версії MySQL
         run: mysql --version || echo "MySQL не встановлений"
+
