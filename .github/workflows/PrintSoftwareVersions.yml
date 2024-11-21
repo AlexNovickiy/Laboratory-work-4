@@ -9,7 +9,7 @@ on:
 jobs:
   # Перша робота для перевірки версій ПЗ на рівні обробки даних
   check-processing-software-versions:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Виведення версії Node.js
         run: node --version
@@ -25,7 +25,12 @@ jobs:
 
   # Друга робота для перевірки версії СКБД на рівні доступу до даних
   check-database-software-versions:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      - name: Виведення версії MongoDB
-        run: mongo --version || echo "MongoDB не встановлений"
+      - name: Встановлення MySQL на Windows
+        run: |
+          choco install mysql
+          net start mysql
+
+      - name: Виведення версії MySQL
+        run: mysql --version || echo "MySQL не встановлений"
